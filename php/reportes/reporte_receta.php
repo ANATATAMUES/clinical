@@ -478,14 +478,12 @@ while($row = mysqli_fetch_array($result4)) {
 
 
 //------------------------------------------- CARA IZQUIERDA -----------------------------
-
 $pdf->SetFont('Arial','',8);
 $pdf->SetTextColor(34, 68, 93);
 $pdf->Cell(5);
 $pdf->Cell(30,5,'H. Clinica:','LTR',0,'L');
 $pdf->Cell(20,5,'CIE:','LTR',0,'L');
 $pdf->Cell(70,5,'Antecedentes de Alergias:','LTR',0,'L');
-
 $pdf->SetFont('Arial','',8);
 $pdf->SetTextColor(35, 35, 35);
 $pdf->SetY(68);
@@ -496,14 +494,11 @@ if (!empty($cie)) {
 }else{
   $pdf->Cell(20,5,'','LBR',0,'L');
 }
-
-
 if (empty($alergia)) {
   $pdf->Cell(70,5,'NO','LBR',1,'L');
 }else{
   $pdf->Cell(70,5,utf8_decode('SÍ - '.mb_strtolower(substr($alergia,1))),'LBR',1,'L');
 }
-
 $pdf->Cell(5);
 $pdf->SetFont('Arial','',8);
 $pdf->SetTextColor(34, 68, 93);

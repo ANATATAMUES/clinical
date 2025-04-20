@@ -1318,8 +1318,14 @@ $(document).ready(function() {
                 data: { id_paciente },
                 success: function(response) {
                     const paciente = JSON.parse(response);
-                    const edad = Number(calcularEdad(paciente.fechan_paci).substr(0,2));
-                    console.log(edad);
+                    var edad=0;
+                if (paciente.fechan_paci=="0000-00-00"){
+                    edad = 0;
+                }
+                else
+                {
+                    edad = Number(calcularEdad(paciente.fechan_paci).substr(0,2));
+                }
                     $.ajax({ 
                         type: "POST",
                         url: "../php/signov_ant/signov_ant-get-c.php",
@@ -1383,8 +1389,14 @@ $(document).ready(function() {
             data: { id_paciente },
             success: function(response) {
                 const paciente = JSON.parse(response);
-                const edad = Number(calcularEdad(paciente.fechan_paci).substr(0,2));
-                console.log(edad);
+                var edad=0;
+                if (paciente.fechan_paci=="0000-00-00"){
+                    edad = 0;
+                }
+                else
+                {
+                    edad = Number(calcularEdad(paciente.fechan_paci).substr(0,2));
+                }
                 $.ajax({ 
                     type: "POST",
                     url: "../php/signov_ant/signov_ant-get.php",

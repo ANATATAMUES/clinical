@@ -12,8 +12,11 @@ if (trim($_SESSION['rol']) != trim($rece)) {
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <title>Disponibilidad Médicos</title>
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Last-Modified" content="0">
+    <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+    <meta http-equiv="Pragma" content="no-cache"> 
+    <title>Citas Agendadas</title>
 
 
     <!-- Template CSS -->
@@ -43,8 +46,8 @@ if (trim($_SESSION['rol']) != trim($rece)) {
                             <div class="row m-l-0 m-r-0">
                                 <div class="col-sm-12">
                                     <div class="card-block">
-                                        <h6 class="m-b-20 p-b-5 b-b-default f-w-600 tit text-uppercase">Disponibilidad Médicos</h6>
-                                        <form id="disponibilidad-datos">
+                                        <h6 class="m-b-20 p-b-5 b-b-default f-w-600 tit text-uppercase">Agenda Medicos</h6>
+                                        <form id="citas-datos">
                                            
                                                 <div class="row form-group">
                                                      <div class="col-sm-4 my-2 pt-2">
@@ -55,129 +58,107 @@ if (trim($_SESSION['rol']) != trim($rece)) {
                                                     </div>
                                                     <!-- Elementos del control de Medico mediante un Select -->
                                                     <div class="col-sm-4 my-2 pt-2" id="div_tmed">
-                                                        <p class="m-b-10 f-w-600 text-uppercase">Seleccione un Médico:</p>
+                                                        <p class="m-b-10 f-w-600 text-uppercase"><span style="color: red;">*</span>Seleccione un Médico:</p>
                                                     </div>
                                                     <div class="col-sm-8 my-2 pt-1" id="div_smed">
                                                         <select class="custom-select" id="select_medico" required></select>
                                                     </div>
                                                     <!-- Elegir fecha de la cita -->
                                                     <div class="col-sm-4 my-2 pt-2" id="div_lfecha">
-                                                        <p class="m-b-10 f-w-600 text-uppercase"><span style="color: red;">*</span>Seleccionar Fecha:</p>
+                                                        <p class="m-b-10 f-w-600 text-uppercase"><span style="color: red;">*</span>Búscar por Fecha de Citas:</p>
                                                     </div>
-                                                    <div class="col-sm-8 my-2 pt-1" id="div_fecha">
-                                                        <input type="date" class="form-control" id="fecha_cita" required>
+                                                    <div class="col-sm-4 my-2 pt-1" id="div_fecha">
+                                                        
+                                                        <select class="custom-select" id="fecha_cita" required></select>
                                                     </div>
-                                                    <!-- Elementos del control de Rango 1 mediante un Select -->
-                                                    <div class="col-sm-4 my-2 pt-2" id="div_ran1">
-                                                        <p class="m-b-10 f-w-600 text-uppercase"><span style="color: red;">*</span>Seleccione Rango 1:</p>
+                                                    <div class="col-sm-2 my-2 pt-1" id="btn_listar">
+                                                        <a style="color: #fff;" class="btn btn-primary" id="list_citas"><span class="fa fa-search"></span> Buscar Citas</a>
                                                     </div>
-                                                    <div class="col-sm-4 my-2 pt-1" id="div_ran1_i">
-                                                        <label class="text-muted f-w-400"> Desde:</label>
-                                                        <select class="custom-select" id="select_rango1_ini" required>
-                                                            <option value="0" selected>Seleccione una hora</option>
-                                                            <option value="00:00">00:00</option>
-                                                            <option value="00:30">00:30</option>
-                                                            <option value="01:00">01:00</option>
-                                                            <option value="01:30">01:30</option>
-                                                            <option value="02:00">02:00</option>
-                                                            <option value="02:30">02:30</option>
-                                                            <option value="03:00">03:00</option>
-                                                            <option value="03:30">03:30</option>
-                                                            <option value="04:00">04:00</option>
-                                                            <option value="04:30">04:30</option>
-                                                            <option value="05:00">05:00</option>
-                                                            <option value="05:30">05:30</option>
-                                                            <option value="06:00">06:00</option>
-                                                            <option value="06:30">06:30</option>
-                                                            <option value="07:00">07:00</option>
-                                                            <option value="07:30">07:30</option>
-                                                            <option value="08:00">08:00</option>
-                                                            <option value="08:30">08:30</option>
-                                                            <option value="09:00">09:00</option>
-                                                            <option value="09:30">09:30</option>
-                                                            <option value="10:00">10:00</option>
-                                                            <option value="10:30">10:30</option>
-                                                            <option value="11:00">11:00</option>
-                                                            <option value="11:30">11:30</option>
-                                                            <option value="12:00">12:00</option>
-                                                            <option value="12:30">12:30</option>
-                                                            <option value="13:00">13:00</option>
-                                                            <option value="13:30">13:30</option>
-                                                            <option value="14:00">14:00</option>
-                                                            <option value="14:30">14:30</option>
-                                                            <option value="15:00">15:00</option>
-                                                            <option value="15:30">15:30</option>
-                                                            <option value="16:00">16:00</option>
-                                                            <option value="16:30">16:30</option>
-                                                            <option value="17:00">17:00</option>
-                                                            <option value="17:30">17:30</option>
-                                                            <option value="18:00">18:00</option>
-                                                            <option value="18:30">18:30</option>
-                                                            <option value="19:00">19:00</option>
-                                                            <option value="19:30">19:30</option>
-                                                            <option value="20:00">20:00</option>
-                                                            <option value="20:30">20:30</option>
-                                                            <option value="21:00">21:00</option>
-                                                            <option value="21:30">21:30</option>
-                                                            <option value="22:00">22:00</option>
-                                                            <option value="22:30">22:30</option>
-                                                            <option value="23:00">23:00</option>
-                                                            <option value="23:30">23:30</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-sm-4 my-2 pt-1" id="div_ran1_f">
-                                                        <label class="text-muted f-w-400"> Hasta:</label>
-                                                        <select class="custom-select" id="select_rango1_fin" required> </select>
-                                                    </div>
-
-                                                    <!-- Elementos del control de Rango 2 mediante un Select -->
-                                                    <div class="col-sm-4 my-2 pt-2" id="div_ran2">
-                                                        <p class="m-b-10 f-w-600 text-uppercase"><span style="color: red;">*</span>Seleccione Rango 2:</p>
-                                                    </div>
-                                                    <div class="col-sm-4 my-2 pt-1" id="div_ran2_i">
-                                                        <label class="text-muted f-w-400"> Desde:</label>
-                                                        <select class="custom-select" id="select_rango2_ini"></select>
-                                                    </div>
-                                                    <div class="col-sm-4 my-2 pt-1" id="div_ran2_f">
-                                                        <label class="text-muted f-w-400"> Hasta:</label>
-                                                        <select class="custom-select" id="select_rango2_fin"> </select>
-                                                    </div>
-
-                                                    <!-- Elementos del control de Rango 3 mediante un Select -->
-                                                    <div class="col-sm-4 my-2 pt-2" id="div_ran3">
-                                                        <p class="m-b-10 f-w-600 text-uppercase">Seleccione Rango 3:</p>
-                                                    </div>
-                                                    <div class="col-sm-4 my-2 pt-1" id="div_ran3_i">
-                                                        <label class="text-muted f-w-400"> Desde:</label>
-                                                        <select class="custom-select" id="select_rango3_ini"></select>
-                                                    </div>
-                                                    <div class="col-sm-4 my-2 pt-1" id="div_ran3_f">
-                                                        <label class="text-muted f-w-400"> Hasta:</label>
-                                                        <select class="custom-select" id="select_rango3_fin"> </select>
-                                                    </div>
-                                                    
                                                 </div>
-                                                <div id="respuesta"></div>
+                                            
+                                            
+                                            
+                                            
+                                                <div id="div_table" class="col-md-12">
                                                 <div class="row form-group">
                                                     <div class="container">
                                                         <div class="row">
-                                                            <div class="col-12 table-responsive">
-                                                                <table class="table table-striped" id="rangos_table">
+                                                            <div class="col-md-12 col-lg-12 table-responsive">
+                                                                <table class="table table-striped" id="citas_table">
                                                                     <thead>
                                                                         <tr>
                                                                             <th scope="col">Fecha</th>
-                                                                            <th scope="col">Hora Inicio</th>
-                                                                            <th scope="col">Hora Fin</th>
-                                                                            
+                                                                            <th scope="col">Hora cita</th>
+                                                                            <th scope="col">Estado</th>
                                                                         </tr>
                                                                     </thead>
-                                                                    <tbody id="rangos_body"></tbody>
+                                                                    <tbody id="citas_body"></tbody>
                                                                 </table>
+                                                                
+
+
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    
                                                 </div>
-                                             
+                                                <!-- Cita seleccionada --->
+                                                <div class="col-sm-4 my-2 pt-2" id="div_lturno">
+                                                        <p class="m-b-10 f-w-600 text-uppercase"><span style="color: red;">*</span>Turno Seleccionado:</p>
+                                                    </div>
+                                                    <div class="col-sm-4 my-2 pt-1" id="div_turno">
+                                                        <input type="text" class="form-control" id="turno" size="50" maxlength="50" required disabled>
+                                                    </div>
+                                                <div class="row form-group" id="div_datos_paciente">
+                                                <div class="col-sm-12 mb-1 mt-4">
+                                                    <h6 class="m-b-20 p-b-5 b-b-default f-w-600 tit">Datos del paciente</h6>
+                                                </div>
+                                                <!-- Elementos del control de Nacionalidad mediante un Select -->
+                                                <div class="col-sm-4 my-2">
+                                                    <p class="m-b-10 f-w-600"><span style="color: red;">*</span>Nacionalidad:</p>
+                                                    <select class="custom-select" id="select_nacionalidad" required></select>
+                                                </div>
+                                                <!-- Elementos del control de cedula del paciente mediante un input -->
+                                                <div class="col-sm-4 my-2">
+                                                    <p class="m-b-10 f-w-600"><span style="color: red;">*</span>Cédula:</p>
+                                                <input type="text" class="text-muted f-w-400 form-control" id="cedula_paci" ondrop="return false;" onpaste="return false;" onkeypress="return event.charCode>=48 && event.charCode<=57" size="10" maxlength="10" required>
+                                                </div>
+                                                 <!-- Elementos del control de sin cedula del paciente mediante un input -->
+                                                 <div class="col-sm-2 my-2">
+                                                        <input class="form-check-input" type="checkbox" value="" id="sin_ced">
+                                                        <label class="form-check-label m-b-10 f-w-600" for="sin_ced">
+                                                            Sin Cédula
+                                                        </label>
+                                                    </div>
+                                                <!-- Boton para abrir un modal de busqueda por nombre -->
+                                                <div class="col-sm-2 my-2">
+                                                    <a style="color: #fff;" class="btn" id="buscar_btn"><span class="fa fa-search"></span> Realizar busqueda por nombres</a>
+                                                </div>
+
+                                                <div class="col-sm-6 my-2">
+                                                    <p class="m-b-10 f-w-600"><span style="color: red;">*</span>Primer nombre:</p>
+                                                    <input type="text" class="text-muted f-w-400 form-control" id="nombres_paci1" size="50" maxlength="50" required>
+                                                </div>
+                                                <div class="col-sm-6 my-2">
+                                                    <p class="m-b-10 f-w-600">Segundo nombre:</p>
+                                                    <input type="text" class="text-muted f-w-400 form-control" id="nombres_paci2" size="50" maxlength="50">
+                                                </div>
+                                                <div class="col-sm-6 my-2">
+                                                    <p class="m-b-10 f-w-600"><span style="color: red;">*</span>Primer apellido:</p>
+                                                    <input type="text" class="text-muted f-w-400 form-control" id="apellidos_paci1" size="50" maxlength="50" required>
+                                                </div>
+                                                <div class="col-sm-6 my-2">
+                                                    <p class="m-b-10 f-w-600">Segundo apellido:</p>
+                                                    <input type="text" class="text-muted f-w-400 form-control" id="apellidos_paci2" size="50" maxlength="50">
+                                                </div>
+                                                <div class="col-sm-6 my-2">
+                                                    <p class="m-b-10 f-w-600"><span style="color: red;">*</span>Celular:</p>
+                                                    <input type="tel" class="text-muted f-w-400 form-control" id="celular_paci" pattern="[0-9]{10}" size="10" maxlength="10" autocomplete="of" required>
+                                                </div>
+                                                <div class="col-sm-6 my-2">
+                                                    <p class="m-b-10 f-w-600"><span style="color: red;">*</span>Seguro Médico:</p>
+                                                    <select class="custom-select" id="select_seguros" required></select>
+                                                </div>
                                            
                                             <!-- Boton de registrar la cita. -->
                                             <div class="col-sm-12 my-2">
@@ -187,9 +168,6 @@ if (trim($_SESSION['rol']) != trim($rece)) {
                                                 </div>
                                             </div>
                                         </form>
-                                        <div class="col-sm-12 my-2">
-                                            <button class="btn btn-primary text-uppercase btn-lg float-right my-4" type="button" id="eliminar_rango"><span class="fa fa-trash"></span> Eliminar Disponibilidad</button>
-                                            </div>
                                     </div>
                                 </div>
                             </div>
@@ -451,8 +429,9 @@ if (trim($_SESSION['rol']) != trim($rece)) {
     <script src="../assets/js/bootstrap.min.js"></script>
     <script src="js/rece.js"></script>
 
-    <script src="js/disp_med.js"></script>
-    
+    <script src="js/cita_age_med.js"></script>
+    <script src="../lib/val_ced.js"></script>
+    <script src="../lib/gen-pass.js"></script>
 </body>
 
 </html>

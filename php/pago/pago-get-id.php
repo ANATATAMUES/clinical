@@ -7,7 +7,7 @@ include_once '../../dbconnection.php';
     $id_medico = $_POST['id_medico'];
     $valor_total = $_POST['valor_total'];
 
-    $query = "SELECT id_pago FROM pago WHERE fecha_gen = '{$fecha_gen}' and id_usuario = '{$id_usuario}' and id_medico = '{$id_medico}' and valor_total = '{$valor_total}'";
+    $query = "SELECT max(id_pago) as id_pago FROM pago WHERE fecha_gen = '{$fecha_gen}' and id_usuario = '{$id_usuario}' and id_medico = '{$id_medico}' and valor_total = '{$valor_total}'";
     
     $result = mysqli_query($conn, $query);
     if(!$result) {

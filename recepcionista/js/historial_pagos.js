@@ -24,7 +24,7 @@ $(document).ready(function() {
                                         <td class="pt-3">${r.sufijo +" "+ r.apellidos_medi +" "+ r.nombres_medi}</td>
                                         <td class="pt-3">${r.usuario}</td>
                                         <td class="pt-3">$${r.valor_total}</td>
-                                        <td class="pt-3"><a href="../php/reportes/reporte_comp_p.php?id_medico=${r.id_medico}&id_usuario=${r.id_usuario}&id_pago=${r.id_pago}" style="color: #fff" class="btn btn-success btn-sm">VER</a></td>
+                                        <td class="pt-3"><a href="../php/reportes/reporte_comp_p.php?id_medico=${r.id_medico}&id_usuario=${r.id_usuario}&id_pago=${r.id_pago}" target="_blank" style="color: #fff" class="btn btn-success btn-sm">VER</a></td>
                                     </tr>
                                     <tr id="scitang-row">
                                         <td></td>

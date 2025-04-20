@@ -33,11 +33,13 @@
             </li>
             <li class="menu-list">
                 <a href="#"><i class="fa fa-calendar"></i>
-                <span class="text-uppercase">Citas<i class="lnr lnr-chevron-right"></i></span></a>
+                <span class="text-uppercase">Agenda<i class="lnr lnr-chevron-right"></i></span></a>
                 <ul class="sub-menu-list">
+                    <li><a href="cita_age_doc.php">Agenda Médico</a> </li>
                     <li><a href="cita_age_read.php">Citas agendadas</a> </li>
                     <li><a href="historial_citas.php">Historial de citas</a> </li>
                     <li><a href="citas_atendidas.php">Citas atendidas</a> </li>
+                    <li><a href="disp_med.php">Disponibilidad Médico</a> </li>
                 </ul>
             </li>
             <li>

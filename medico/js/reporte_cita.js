@@ -19,6 +19,8 @@ $(document).ready(function () {
     $("#desc_certmed").click(function (e) { 
         e.preventDefault();
         window.open(`../php/reportes/certificado_medico.php?id_cita=${id_cita}`, '_blank');
+        //window.open(`../php/reportes/word/certificado_word.php?id_cita=${id_cita}`, '_blank');
+
     });
     $("#desc_form002").click(function (e) { 
         e.preventDefault();

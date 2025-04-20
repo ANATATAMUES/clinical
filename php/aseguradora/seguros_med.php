@@ -2,7 +2,12 @@
 
 include_once '../../dbconnection.php';
 
-  $query = "SELECT * FROM especialidad ORDER BY nombre ASC";//preparamos la consulta sql
+$id_medico = $_POST['id_medico'];
+
+  $query = "SELECT * FROM asegu_med as asm
+  INNER JOIN aseguradora as ase ON ase.id=asm.id_seguro
+   where id_medico= '{$id_medico}' 
+   ORDER BY nombre ASC";//preparamos la consulta sql
     
   $result = mysqli_query($conn, $query);//ejecuta la consulta sql
   if(!$result) {
@@ -19,5 +24,5 @@ include_once '../../dbconnection.php';
   }
   
     $jsonstring = json_encode($json);// se convierte el array en una cadena json
-    echo $jsonstring;//se devuelve el resultado exitoso al disp_med.js
+    echo $jsonstring;//se devuelve el resultado exitoso al caso_create.js
 ?>

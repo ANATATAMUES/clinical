@@ -331,7 +331,7 @@ else
 }
 
 
-header('Content-Disposition: attachment; filename="Dcomuento.docx');
+header('Content-Disposition: attachment; filename="'.$nombres_paci1.' '.$nombres_paci2.' '.$apellidos_paci1.' '.$apellidos_paci2.'.docx"');
 $templateProcessor->saveAs("php://output");
 
 ?>

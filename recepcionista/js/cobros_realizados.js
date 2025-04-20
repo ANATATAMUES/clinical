@@ -64,7 +64,35 @@ $(document).ready(function() {
         }
     });
 
+   
     $( "#select_medico" ).change(function() {
+        var id_medico = $("#select_medico").val();
+        const postmedicos = {
+            id_medico: id_medico
+        }
+    
+        $.ajax({
+            url: '../php/cita/citas-med-sin-cobro.php',
+            type: 'POST',
+            data: postmedicos,
+            success: function(response) {
+                const fechas = JSON.parse(response);
+                let template = '<option selected="selected"></option>';
+                fechas.forEach(registros => {
+                    //========Separación de un nombre y un apellido ===================
+                    let fecha = registros.fecha;
+                   
+                    template += `
+                        <option value="${fecha}">${fecha}</option>
+                        `;
+                });
+
+                $('#select_fecha').html(template);
+
+            }
+        });
+      });
+      $( "#select_fecha" ).change(function() {
         formas_pago = [];
         array_citas  = [];
         array_citas_c  = [];
@@ -154,8 +182,8 @@ $(document).ready(function() {
                                             data: { id_cita },
                                             success: function(response) {
                                                 if (i == (id_citas.length-1)) {
-                                                    window.open(`../php/reportes/reporte_comp_p.php?id_medico=${id_medico}&id_usuario=${id_usuario}&id_pago=${id_pago}`, '_blank');
-                                                    setTimeout(function() { window.location.href = "rece.php"; }, 3000);
+                                                    //window.open(`../php/reportes/reporte_comp_p.php?id_medico=${id_medico}&id_usuario=${id_usuario}&id_pago=${id_pago}`, '_blank');
+                                                    setTimeout(function() { window.location.href = "historial_pagos.php"; }, 3000);
                                                 }
                                             }
                                         });
@@ -173,14 +201,15 @@ $(document).ready(function() {
 
     function listarcobros(id) {
         const id_medico = id;
+        var fecha_busc = $("#select_fecha").val();
         $.ajax({
             type: "POST",
-            data: {id_medico},
+            data: {id_medico, fecha_busc},
             url: '../php/cita/cita-cobrada.php',
             success: function(response) {
                  $("#respuesta").html('');
                 if (response == false) {
-                    $('#texto_modal').html("No se encuentran citas cobradas");
+                    $('#texto_modal').html("No se encuentran citas disponibles para pago");
                     $('#modal_icon').attr('style', "color: orange");
                     $('#modal_icon').attr("class", "fa fa-exclamation-circle fa-4x animated rotateIn mb-4");
                     $('#modalPush').modal("show");

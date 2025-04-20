@@ -59,11 +59,11 @@ $(document).ready(function() {
                                                     <td class="pt-3">${hora}h</td>
                                                     <td class="pt-3">${nom_apep}</td>
                                                     <td class="pt-3">${nom_apem}</td>
-                                                    <td class="pt-3"><a href="atencion_paci.php?id_paciente=${cita.id_paciente}&id_cita=${cita.id_cita}"" style="color: #fff" class="btn btn-success btn-sm">Atender Con Formulario</a></td>
+                                                    <td class="pt-3"><a href="atencion_paci.php?id_paciente=${cita.id_paciente}&id_cita=${cita.id_cita}"" style="color: #fff" class="btn btn-success btn-sm">Atender</a></td>
                                                     `;
                                 if (seguro < 2)
                                 {
-                                    template += `<td class="pt-3"><a href="atencion_paci_sin.php?id_paciente=${cita.id_paciente}&id_cita=${cita.id_cita}"" style="color: #fff" class="btn btn-warning btn-sm">Atender Sin Formulario</a></td>`;
+                                  //  template += `<td class="pt-3"><a href="atencion_paci_sin.php?id_paciente=${cita.id_paciente}&id_cita=${cita.id_cita}"" style="color: #fff" class="btn btn-warning btn-sm">Atender Sin Formulario</a></td>`;
                                 }
                                  template += `             
                                                     </tr>

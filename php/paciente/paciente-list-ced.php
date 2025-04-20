@@ -6,7 +6,8 @@ if(isset($_POST['usuario'])) {
 
   $id_usuario = $_POST['usuario'];
  
-  $query = sprintf("SELECT * from paciente where cedula_paci = '%s'",mysqli_real_escape_string($conn,$id_usuario));
+  $query = sprintf("SELECT * from paciente INNER JOIN aseguradora ON aseguradora.id=paciente.id_seguro
+   where cedula_paci = '%s'",mysqli_real_escape_string($conn,$id_usuario));
   
   $result = mysqli_query($conn, $query);
   
@@ -43,7 +44,9 @@ if(isset($_POST['usuario'])) {
           'san_id' => $row['san_id'],
           'nac_id' => $row['nac_id'],
           'gen_id' => $row['gen_id'],
-          'id_usuario' => $row['id_usuario']
+          'id_usuario' => $row['id_usuario'],
+          'seguro' => $row['nombre']
+
         );
         
     }

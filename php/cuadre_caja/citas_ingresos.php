@@ -5,15 +5,31 @@ include_once '../../variables.php';
 
    $fecha = $_POST['fecha'];
    $id_usuario = $_POST['id_usuario'];
-   $query = "SELECT ci_pa.*, ci.*, ca.id_medico, ca.id_paciente, me.pago_ingreso, me.sufijo, me.nombres_medi, me.apellidos_medi, pa.nombres_paci1, pa.apellidos_paci1, pa.nombres_paci2, pa.apellidos_paci2, me.tarifa, me.tarifa_control, usu.id_usuario, fp.nombre
-                    FROM cita_pago AS ci_pa 
-                    INNER JOIN cita AS ci ON ci_pa.id_cita = ci.id_cita 
-                    INNER JOIN caso AS ca ON ci.id_caso = ca.id_caso 
-                    INNER JOIN medico AS me ON me.id_medico = ca.id_medico 
-                    INNER JOIN paciente AS pa ON pa.id_paciente = ca.id_paciente 
-                    INNER JOIN usuario as usu ON pa.id_usuario = usu.id_usuario
-                    INNER JOIN f_pago AS fp ON fp.id = ci_pa.id_f_pago
-                WHERE ci_pa.fecha_p = '{$fecha}' and ci_pa.id_usuario = '{$id_usuario}' ORDER BY ci_pa.id_cita ASC";
+  
+   
+    $query = "SELECT ci.id_cita, 
+	   cp.descripcion, cp.costo, cp.fecha_p, cp.hora_p,
+       me.sufijo, me.nom_ape_medi, me.comision_c, me.comision_a,
+       pa.nombres_paci1, pa.nombres_paci2, pa.apellidos_paci1, pa.apellidos_paci2,
+       fp.id, fp.nombre as forma_pago,
+       tp.id_tipo_pago, tp.descripcion as tipo_pago
+        FROM cita_pago as cp
+        INNER JOIN cita as ci
+        ON cp.id_cita = ci.id_cita
+        INNER JOIN caso as ca
+        ON ca.id_caso = ci.id_caso
+        INNER JOIN medico as me
+        ON ca.id_medico = me.id_medico
+        INNER JOIN paciente as pa
+        ON pa.id_paciente = ca.id_paciente
+        INNER JOIN f_pago as fp
+        ON fp.id = cp.id_f_pago
+        INNER JOIN tipo_pago as tp
+        ON tp.id_tipo_pago = cp.id_tipo_pago
+        WHERE cp.fecha_p = '{$fecha}'  ORDER BY cp.id_cita ASC";
+   
+   //and cp.id_usuario = '{$id_usuario}'
+   
     $result = mysqli_query($conn, $query);
  
   if(!$result) {
@@ -25,30 +41,22 @@ include_once '../../variables.php';
         $json[] = array(
           'id_cita' => $row['id_cita'],
           'descripcion' => $row['descripcion'],
-          'fecha' => $row['fecha'],
-          'hora' => $row['hora'],
-          'tipo_cita' => $row['tipo_cita'],
-          'id' => $row['id'],
-          'descuento' => $row['descuento'],
-          'id_caso' => $row['id_caso'],
-          'id_medico' => $row['id_medico'],
-          'id_paciente' => $row['id_paciente'],
-          'sufijo' => $row['sufijo'],
-          'pago_ingreso' => $row['pago_ingreso'],
-          'nombres_medi' => $row['nombres_medi'],
-          'apellidos_medi' => $row['apellidos_medi'],
-          'tarifa' => $row['tarifa'],
-          'tarifa_control' => $row['tarifa_control'],
-          'nombres_paci1' => $row['nombres_paci1'],
-          'apellidos_paci1' => $row['apellidos_paci1'],
-          'nombres_paci2' => $row['nombres_paci2'],
-          'apellidos_paci2' => $row['apellidos_paci2'],
-          'actualizacion' => $row['actualizacion'],
-          'id_usuario' => $row['id_usuario'],
+          'costo' => $row['costo'],
           'fecha_p' => $row['fecha_p'],
           'hora_p' => $row['hora_p'],
-          'costo' => $row['costo'],
-          'nombre' => $row['nombre']
+          'sufijo' => $row['sufijo'],
+          'nom_ape_medi' => $row['nom_ape_medi'],
+          'comision_c' => $row['comision_c'],
+          'comision_a' => $row['comision_a'],
+          'nombres_paci1' => $row['nombres_paci1'],
+          'nombres_paci2' => $row['nombres_paci2'],
+          'apellidos_paci1' => $row['apellidos_paci1'],
+          'apellidos_paci2' => $row['apellidos_paci2'],
+          'nom_ape_medi' => $row['nom_ape_medi'],
+          'id' => $row['id'],
+          'forma_pago' => $row['forma_pago'],
+          'id_tipo_pago' => $row['id_tipo_pago'],
+          'tipo_pago' => $row['tipo_pago']
         );
         
     }

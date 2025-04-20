@@ -1,7 +1,6 @@
 <?php
 include_once '../../dbconnection.php';
 $id_cita = $_POST['id_cita'];
-
 $query = "SELECT ci.*, 
             ca.id_medico, 
             me.sufijo, me.apellidos_medi , 
@@ -44,10 +43,8 @@ while($row = mysqli_fetch_array($result)) {
         'nombres_paci2' => $row['nombres_paci2'],
         'apellidos_paci2' => $row['apellidos_paci2'],
         'sufijo' => $row['sufijo'],
-        'nombre' => $row['nombre'],
         'nom_ape_medi' => $row['nom_ape_medi'],
-        'id_paciente' => $row['id_paciente'],
-        'costo' => $row['costo']
+        'id_paciente' => $row['id_paciente']
         
     );
 }

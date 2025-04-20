@@ -51,7 +51,6 @@ if(isset($_POST['id_paciente'])) {
           'contacto_ape' => $row['contacto_ape'],
           'contacto_par' => $row['contacto_par'],
           'contacto_num' => $row['contacto_num'],
-          'sangre' => $row['sangre'],
           'nacionalidad' => $row['nacionalidad'],
           'genero' => $row['genero'],
           'id_gen' => $row['id_gen'],

@@ -4,23 +4,10 @@ include_once '../../dbconnection.php';
 include_once '../../variables.php';
 
     $id_medico = $_POST['id_medico'];
-   /* $query = "SELECT ci.*, ca.id_medico, ca.id_paciente,me.comision_c, me.pago_ingreso, me.comision_a, me.sufijo, me.nombres_medi, me.apellidos_medi, pa.nombres_paci1, pa.apellidos_paci1, pa.nombres_paci2, pa.apellidos_paci2, me.tarifa, me.tarifa_control, fp.nombre, fp.aseguradora, am.valor
-                FROM cita AS ci
-                INNER JOIN caso AS ca
-                    ON ci.id_caso = ca.id_caso
-                INNER JOIN medico AS me
-                    ON me.id_medico = ca.id_medico
-                INNER JOIN paciente AS pa
-                    ON pa.id_paciente = ca.id_paciente
-                INNER JOIN cita_pago as cp
-                	ON ci.id_cita = cp.id_cita
-                INNER JOIN f_pago as fp
-                	ON fp.id = cp.id_f_pago
-                INNER JOIN asegu_med as am
-                	ON am.id_medico = ca.id_medico AND am.id_seguro = fp.aseguradora
-                WHERE ci.id = '{$cita_cobrada}' AND ca.id_medico = '{$id_medico}' ORDER BY ci.id_cita ASC LIMIT 1";
-    */
-
+    $fecha = $_POST['fecha_busc'];
+   
+    if(strlen($fecha)>0)
+    {
     $query = "SELECT ci.*, ca.id_medico, ca.id_paciente,me.comision_c, me.pago_ingreso, me.comision_a, me.sufijo, me.nombres_medi, me.apellidos_medi, pa.nombres_paci1, pa.apellidos_paci1, pa.nombres_paci2, pa.apellidos_paci2, me.tarifa, me.tarifa_control, fp.nombre, fp.aseguradora, am.valor, cp.costo
     FROM cita AS ci
     INNER JOIN caso AS ca
@@ -35,8 +22,26 @@ include_once '../../variables.php';
       ON fp.id = cp.id_f_pago
     INNER JOIN asegu_med as am
       ON am.id_medico = ca.id_medico AND am.id_seguro = fp.aseguradora
-    WHERE (ci.id = '{$cita_cobrada}' OR ci.id = '{$cita_atendida}' OR ci.id='{$cita_espera}') AND ca.id_medico = '{$id_medico}' GROUP BY ci.id_cita ORDER BY ci.id_cita ";
-
+    WHERE ci.fecha='{$fecha}' AND (ci.id = '{$cita_cobrada}' OR ci.id = '{$cita_atendida}' OR ci.id='{$cita_espera}') AND ca.id_medico = '{$id_medico}' GROUP BY ci.id_cita ORDER BY ci.id_cita ";
+    }
+    else
+    {
+      $query = "SELECT ci.*, ca.id_medico, ca.id_paciente,me.comision_c, me.pago_ingreso, me.comision_a, me.sufijo, me.nombres_medi, me.apellidos_medi, pa.nombres_paci1, pa.apellidos_paci1, pa.nombres_paci2, pa.apellidos_paci2, me.tarifa, me.tarifa_control, fp.nombre, fp.aseguradora, am.valor, cp.costo
+      FROM cita AS ci
+      INNER JOIN caso AS ca
+          ON ci.id_caso = ca.id_caso
+      INNER JOIN medico AS me
+          ON me.id_medico = ca.id_medico
+      INNER JOIN paciente AS pa
+          ON pa.id_paciente = ca.id_paciente
+      INNER JOIN cita_pago as cp
+        ON ci.id_cita = cp.id_cita
+      INNER JOIN f_pago as fp
+        ON fp.id = cp.id_f_pago
+      INNER JOIN asegu_med as am
+        ON am.id_medico = ca.id_medico AND am.id_seguro = fp.aseguradora
+      WHERE (ci.id = '{$cita_cobrada}' OR ci.id = '{$cita_atendida}' OR ci.id='{$cita_espera}') AND ca.id_medico = '{$id_medico}' GROUP BY ci.id_cita ORDER BY ci.id_cita ";
+    }
 
 
 

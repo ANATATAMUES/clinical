@@ -25,8 +25,7 @@
             <tbody>
                 <tr>
                     <td><label id="medico"></label></td>
-                </tr>
-                
+                </tr>              
                 <tr>
                     <td><strong><label id="fecha"></label></strong></td>
                 </tr>
@@ -45,14 +44,12 @@
                 <tr>
                     <td><label id="turno"></label></td>
                 </tr>
-                
                 <tr>
                     <td></br> <strong>COBROS REALIZADOS</strong></td>
                 </tr>
                 <tr>
                     <td id="f_pago"></td>                    
-                </tr>
-                
+                </tr> 
             </tbody>
         </table>
         </div>

@@ -183,7 +183,7 @@ while($row = mysqli_fetch_array($result)) {
 
  
 //Query citas cobradas
-$query_cb = "SELECT ci.*, ca.id_medico, ca.id_paciente,me.sufijo, me.nombres_medi, me.apellidos_medi, pa.nombres_paci1, pa.apellidos_paci1, pa.nombres_paci2, pa.apellidos_paci2, me.tarifa, me.tarifa_control, pag.fecha_gen, am.valor, am.id_seguro, fp.nombre, cp.costo
+ $query_cb = "SELECT ci.*, ca.id_medico, ca.id_paciente,me.sufijo, me.nombres_medi, me.apellidos_medi, pa.nombres_paci1, pa.apellidos_paci1, pa.nombres_paci2, pa.apellidos_paci2, me.tarifa, me.tarifa_control, pag.fecha_gen, am.valor, am.id_seguro, fp.nombre, cp.costo
                 FROM cita AS ci
                 INNER JOIN caso AS ca
                     ON ci.id_caso = ca.id_caso

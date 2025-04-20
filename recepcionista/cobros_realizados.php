@@ -12,7 +12,10 @@ if (trim($_SESSION['rol']) != trim($rece)) {
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Last-Modified" content="0">
+    <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+    <meta http-equiv="Pragma" content="no-cache">       
     <title>Cobros Realizados</title>
 
 
@@ -55,6 +58,12 @@ if (trim($_SESSION['rol']) != trim($rece)) {
                                                     </div>
                                                     <div class="col-sm-8 my-2 pt-1">
                                                         <select class="custom-select" id="select_medico" required></select>
+                                                    </div>
+                                                    <div class="col-sm-4 my-2 pt-2">
+                                                        <p class="m-b-10 f-w-600 text-uppercase"><span style="color: red;">*</span>Seleccione Fecha:</p>
+                                                    </div>
+                                                    <div class="col-sm-8 my-2 pt-1">
+                                                        <select class="custom-select" id="select_fecha" required></select>
                                                     </div>
                                                     <br>
                                                      <div class="container" id="respuesta">

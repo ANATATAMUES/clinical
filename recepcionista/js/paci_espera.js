@@ -236,7 +236,7 @@ $(document).ready(function() {
                     id_usuario: id_usuario
                 };
 
-                if (postData.direccion_paci == "" || postData.ocupacion_paci == "" || postData.empresat_paci == "" || postData.nombres_paci1 == "" || postData.apellidos_paci1 == "" || postData.cedula_paci == "" || postData.celular_paci == "" || postData.gen_id == "") {
+                if (postData.direccion_paci == "" || postData.ocupacion_paci == "" || postData.empresat_paci == "" || postData.nombres_paci1 == "" || postData.apellidos_paci1 == "" || postData.cedula_paci == "" || postData.celular_paci == "" || postData.gen_id == "" || postData.fechan_paci == "" || postData.fechan_paci == "0000-00-00") {
                     $('#texto_modal').html('Ingrese datos en los campos obligatorios');
                     $('#modal_icon').attr('style', "color: orange");
                     $('#modal_icon').attr("class", "fa fa-exclamation-circle fa-4x animated rotateIn mb-4");

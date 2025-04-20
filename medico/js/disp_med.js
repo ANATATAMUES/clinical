@@ -1,6 +1,19 @@
 $(document).ready(function() {//----- Ejecutar funciones una vez cargada la pagina HTML
+    const id_usuario = $("#id_usuario").val();
+    
+    const id_medico = JSON.parse($.ajax({
+        type: "POST",
+        glogal: false,
+        async: false,
+        url: "../php/medico/medico-list-id.php",
+        data: {id_usuario},
+        success: function (response) {
+        }
+    }).responseText).id_medico;
 
-    var id_medico=1;
+    getEspecialidades(); 
+    
+    
     var d = new Date(); 
     var month = d.getMonth() + 1;
     var day = d.getDate();
@@ -50,37 +63,35 @@ $(document).ready(function() {//----- Ejecutar funciones una vez cargada la pagi
    getEspecialidades();   //Llama a la funcion get especialidades - carga las especialidades en el SELECT_ESPECIALIDADES
   
     // Obtener Especialidades
-   function getEspecialidades() {//declara la funcion especialidades
-       $.ajax({
-           url: '../php/especialidad/especialidades-list.php',//abrir el archivo especialidades-list.php sin parametro
-           type: 'POST',
-           async: false,
-           success: function(response) {
-               const especialidades = JSON.parse(response);//toma una cadena JSON y la transforma en un objeto de JavaScript
-               let template = '<option value="" selected="selected">Seleccione especialidad</option>';
-               especialidades.forEach(espe => {//recorre las filas del resultado de la consulta
-                   template += `
-                       <option value="${espe.id}">${espe.nombre}</option>
-                       `;// agrega el registro mediante un option al select
-               });
+   // Obtener Especialidades
+   function getEspecialidades() { 
+        $.ajax({
+            url: '../php/especialidad/especialidades-list-med.php',
+            type: 'POST',
+            data: {id_medico},
+            async: false,
+            success: function(response) {
+                const especialidades = JSON.parse(response);
+                let template = '<option selected="selected"></option>';
+                especialidades.forEach(espe => {
+                    template += `
+                        <option value="${espe.id}">${espe.nombre}</option>
+                        `;
+                });
 
-               $('#select_especialidad').html(template);// carga en el select todos los option generados
+                $('#select_especialidad').html(template);
 
-           }
-       });
-   } 
+            }
+        });
+    } 
+  
 
-   $("#select_medico").change(function (e) { 
-        e.preventDefault();
-       
-        $("#div_lfecha").show();
+
+   $("#select_especialidad").change(function (e) { 
+       e.preventDefault();
+       $("#div_lfecha").show();
         $("#div_fecha").show();
         $("#btn_listar").show();
-
-       
-        id_medico=$("#select_medico").val();
-        console.log(id_medico);
-
         $.ajax({
             type: "POST",
             url: '../php/medico/medico-list.php',
@@ -90,69 +101,24 @@ $(document).ready(function() {//----- Ejecutar funciones una vez cargada la pagi
                 }
             });
         listarRangos();
-    });
-
-
-   $("#select_especialidad").change(function (e) { 
-       e.preventDefault();
-       const id_esp = $("#select_especialidad").val();
-       getMedicos(id_esp);
    });
 
-   // Obtener Médicos
-   function getMedicos(id_e) {
-       const id_esp = id_e;
-
-       if (id_esp == "") {
-           $("#div_tmed").hide();
-           $("#div_smed").hide();
-       }else{
-           $("#div_tmed").show();
-           $("#div_smed").show();
-           $.ajax({
-               url: '../php/medico/medicos-list-act-esp.php', 
-               type: 'POST',
-               data: {id_esp},
-               success: function(response) {
-                   const medicos = JSON.parse(response);
-                   let template = '<option selected="selected">Seleccione un médico</option>';
-                   medicos.forEach(medico => {
-                       //========Separación de un nombre y un apellido ===================
-                       let nombre = medico.nombres_medi;
-                       let apellido = medico.apellidos_medi;
-                       let nom_ape = apellido + " " + nombre;
-                       id_medico=medico.id_medico;
-                       template += `
-                           <option value="${medico.id_medico}">${nom_ape}</option>
-                           `;
-                   });
    
-                   $('#select_medico').html(template);
-   
-               }
-           });
-       }
-       
-   } 
- 
-
-
    $("#select_rango1_ini").change(function (e) { 
         e.preventDefault();
         const rango_ini = $("#select_rango1_ini").val();
         const fecha_cita = $("#fecha_cita").val();
         
                 var fecha_ini= (fecha_cita+" "+rango_ini);
-                var fecha_fin= (fecha_cita+" 23:40");
+                var fecha_fin= (fecha_cita+" 23:00");
                 var turno = new Date(fecha_ini);
                 var turno_fin = new Date(fecha_fin);
-                var milsegadd = 0;
                 template ='<option value="0">Seleccione una hora</option>';
                 while(turno<turno_fin)
                 {
                    
                     var fechamilsegundos = turno.getTime();
-                    
+                    var milsegadd = tap * 60000;
                     var turno = new Date(fechamilsegundos + milsegadd);
                     var nuevahora = turno.getHours();
                     
@@ -164,7 +130,6 @@ $(document).ready(function() {//----- Ejecutar funciones una vez cargada la pagi
                     template += `
                             <option value="${nuevahora}:${nuevamin}">${nuevahora}:${nuevamin}</option>
                             `;
-                    milsegadd = tap * 60000;
                 }
                 $('#select_rango1_fin').html(template);
                 
@@ -177,101 +142,9 @@ $(document).ready(function() {//----- Ejecutar funciones una vez cargada la pagi
         const rango_ini = $("#select_rango1_fin").val();
         const fecha_cita = $("#fecha_cita").val();
                 var fecha_ini= (fecha_cita+" "+rango_ini);
-                var fecha_fin= (fecha_cita+" 23:40");
+                var fecha_fin= (fecha_cita+" 23:00");
                 var turno = new Date(fecha_ini);
                 var turno_fin = new Date(fecha_fin);
-                var milsegadd = 0;
-                template ='<option value="0">Seleccione una hora</option>';
-                while(turno<turno_fin)
-                {
-                   
-                    var fechamilsegundos = turno.getTime();
-                    milsegadd = tap * 60000;
-                    var turno = new Date(fechamilsegundos + milsegadd);
-                    var nuevahora = turno.getHours();
-                    
-                    var nuevamin = turno.getMinutes();
-
-                    if(nuevahora <= 9) { nuevahora ="0"+nuevahora;}
-                    if(nuevamin==0) { nuevamin ="00";}
-
-                    template += `
-                            <option value="${nuevahora}:${nuevamin}">${nuevahora}:${nuevamin}</option>
-                            `;
-                   
-                }
-                $('#select_rango2_ini').html(template);       
-    });
-    $("#select_rango2_ini").change(function (e) { 
-        e.preventDefault();
-        const rango_ini = $("#select_rango2_ini").val();
-        const fecha_cita = $("#fecha_cita").val();
-                var fecha_ini= (fecha_cita+" "+rango_ini);
-                var fecha_fin= (fecha_cita+" 23:40");
-                var turno = new Date(fecha_ini);
-                var turno_fin = new Date(fecha_fin);
-                var milsegadd = 0;
-                template ='<option value="0">Seleccione una hora</option>';
-                while(turno<turno_fin)
-                {
-                   
-                    var fechamilsegundos = turno.getTime();
-                    
-                    var turno = new Date(fechamilsegundos + milsegadd);
-                    var nuevahora = turno.getHours();
-                    
-                    var nuevamin = turno.getMinutes();
-
-                    if(nuevahora <= 9) { nuevahora ="0"+nuevahora;}
-                    if(nuevamin==0) { nuevamin ="00";}
-
-                    template += `
-                            <option value="${nuevahora}:${nuevamin}">${nuevahora}:${nuevamin}</option>
-                            `;
-                    milsegadd = tap * 60000;
-                }
-                $('#select_rango2_fin').html(template);       
-    });
-
-    $("#select_rango2_fin").change(function (e) { 
-        e.preventDefault();
-        const rango_ini = $("#select_rango2_fin").val();
-        const fecha_cita = $("#fecha_cita").val();
-                var fecha_ini= (fecha_cita+" "+rango_ini);
-                var fecha_fin= (fecha_cita+" 23:40");
-                var turno = new Date(fecha_ini);
-                var turno_fin = new Date(fecha_fin);
-                var milsegadd = 0;
-                template ='<option value="0">Seleccione una hora</option>';
-                while(turno<turno_fin)
-                {
-                   
-                    var fechamilsegundos = turno.getTime();
-                    milsegadd = tap * 60000;
-                    var turno = new Date(fechamilsegundos + milsegadd);
-                    var nuevahora = turno.getHours();
-                    
-                    var nuevamin = turno.getMinutes();
-
-                    if(nuevahora <= 9) { nuevahora ="0"+nuevahora;}
-                    if(nuevamin==0) { nuevamin ="00";}
-
-                    template += `
-                            <option value="${nuevahora}:${nuevamin}">${nuevahora}:${nuevamin}</option>
-                            `;
-                    
-                }
-                $('#select_rango3_ini').html(template);       
-    });
-    $("#select_rango3_ini").change(function (e) { 
-        e.preventDefault();
-        const rango_ini = $("#select_rango3_ini").val();
-        const fecha_cita = $("#fecha_cita").val();
-                var fecha_ini= (fecha_cita+" "+rango_ini);
-                var fecha_fin= (fecha_cita+" 23:40");
-                var turno = new Date(fecha_ini);
-                var turno_fin = new Date(fecha_fin);
-                var milsegadd = 0;
                 template ='<option value="0">Seleccione una hora</option>';
                 while(turno<turno_fin)
                 {
@@ -289,7 +162,91 @@ $(document).ready(function() {//----- Ejecutar funciones una vez cargada la pagi
                     template += `
                             <option value="${nuevahora}:${nuevamin}">${nuevahora}:${nuevamin}</option>
                             `;
-                    milsegadd = tap * 60000;
+                }
+                $('#select_rango2_ini').html(template);       
+    });
+    $("#select_rango2_ini").change(function (e) { 
+        e.preventDefault();
+        const rango_ini = $("#select_rango2_ini").val();
+        const fecha_cita = $("#fecha_cita").val();
+                var fecha_ini= (fecha_cita+" "+rango_ini);
+                var fecha_fin= (fecha_cita+" 23:00");
+                var turno = new Date(fecha_ini);
+                var turno_fin = new Date(fecha_fin);
+                template ='<option value="0">Seleccione una hora</option>';
+                while(turno<turno_fin)
+                {
+                   
+                    var fechamilsegundos = turno.getTime();
+                    var milsegadd = tap * 60000;
+                    var turno = new Date(fechamilsegundos + milsegadd);
+                    var nuevahora = turno.getHours();
+                    
+                    var nuevamin = turno.getMinutes();
+
+                    if(nuevahora < 9) { nuevahora ="0"+nuevahora;}
+                    if(nuevamin==0) { nuevamin ="00";}
+
+                    template += `
+                            <option value="${nuevahora}:${nuevamin}">${nuevahora}:${nuevamin}</option>
+                            `;
+                }
+                $('#select_rango2_fin').html(template);       
+    });
+
+    $("#select_rango2_fin").change(function (e) { 
+        e.preventDefault();
+        const rango_ini = $("#select_rango2_fin").val();
+        const fecha_cita = $("#fecha_cita").val();
+                var fecha_ini= (fecha_cita+" "+rango_ini);
+                var fecha_fin= (fecha_cita+" 23:00");
+                var turno = new Date(fecha_ini);
+                var turno_fin = new Date(fecha_fin);
+                template ='<option value="0">Seleccione una hora</option>';
+                while(turno<turno_fin)
+                {
+                   
+                    var fechamilsegundos = turno.getTime();
+                    var milsegadd = tap * 60000;
+                    var turno = new Date(fechamilsegundos + milsegadd);
+                    var nuevahora = turno.getHours();
+                    
+                    var nuevamin = turno.getMinutes();
+
+                    if(nuevahora < 9) { nuevahora ="0"+nuevahora;}
+                    if(nuevamin==0) { nuevamin ="00";}
+
+                    template += `
+                            <option value="${nuevahora}:${nuevamin}">${nuevahora}:${nuevamin}</option>
+                            `;
+                }
+                $('#select_rango3_ini').html(template);       
+    });
+    $("#select_rango3_ini").change(function (e) { 
+        e.preventDefault();
+        const rango_ini = $("#select_rango3_ini").val();
+        const fecha_cita = $("#fecha_cita").val();
+                var fecha_ini= (fecha_cita+" "+rango_ini);
+                var fecha_fin= (fecha_cita+" 23:00");
+                var turno = new Date(fecha_ini);
+                var turno_fin = new Date(fecha_fin);
+                template ='<option value="0">Seleccione una hora</option>';
+                while(turno<turno_fin)
+                {
+                   
+                    var fechamilsegundos = turno.getTime();
+                    var milsegadd = tap * 60000;
+                    var turno = new Date(fechamilsegundos + milsegadd);
+                    var nuevahora = turno.getHours();
+                    
+                    var nuevamin = turno.getMinutes();
+
+                    if(nuevahora < 9) { nuevahora ="0"+nuevahora;}
+                    if(nuevamin==0) { nuevamin ="00";}
+
+                    template += `
+                            <option value="${nuevahora}:${nuevamin}">${nuevahora}:${nuevamin}</option>
+                            `;
                 }
                 $('#select_rango3_fin').html(template);       
     });
@@ -302,7 +259,7 @@ $(document).ready(function() {//----- Ejecutar funciones una vez cargada la pagi
              $('#modal_icon').attr('style', "color:orange");
              $('#progreso').attr('style',"visibility:visible");
              $('#modalPush').modal("show");
-        const id_medico = $("#select_medico").val();// Toma el valor del select_medico       
+            
         const fecha_cita = $("#fecha_cita").val();
         const rango1_ini = $("#select_rango1_ini").val();
         const rango1_fin = $("#select_rango1_fin").val();
@@ -376,7 +333,7 @@ $(document).ready(function() {//----- Ejecutar funciones una vez cargada la pagi
 
 
     function listarRangos(){
-        id_medico=$("#select_medico").val();
+        
         fecha_cita=$("#fecha_cita").val();
         
         

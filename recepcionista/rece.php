@@ -99,7 +99,7 @@ if (trim($_SESSION['rol']) != trim($rece)) {
                                                 </div>
                                                 <div class="card-body">
                                                     <!-- Button trigger modal -->
-                                                    <a  href="cita_age_doc.php" class="btn btn-primary btn-style">Mostrar</a>
+                                                    <a  href="cita_age_doc_n.php" class="btn btn-primary btn-style">Mostrar</a>
                                                 </div>
                                             </div>
                                         </div>

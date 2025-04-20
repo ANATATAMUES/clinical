@@ -57,7 +57,7 @@ $(document).ready(function() {
                                             <td class="pt-3">${tipo_cita}</td>
                                             <td class="pt-3">${cita.fecha}</td>
                                             <td class="pt-3">${hora}h</td>
-                                            <td class="pt-3">${nom_apep}</td>
+                                            <td class="pt-3">${nom_apep} - <strong>${cita.seguro}</strong></td>
                                             <td class="pt-3">${nom_apem}</td>
                                             <td class="pt-3">
                                                 <a href="paci_espera.php?id_cita=${cita.id_cita}" style="color: #fff" class="btn btn-success btn-sm">Ingresar a sala de espera</a>

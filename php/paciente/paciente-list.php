@@ -47,7 +47,7 @@ if(isset($_POST['id_paciente'])) {
           'instruccion_paci' => $row['instruccion_paci'],
           'ocupacion_paci' => $row['ocupacion_paci'],
           'empresat_paci' => $row['empresat_paci'],
-          'ssalud_paci' => $row['ssalud_paci'],
+          'id_seguro' => $row['id_seguro'],
           'referido_paci' => $row['referido_paci'],
           'contacto_dir' => $row['contacto_dir']
         );

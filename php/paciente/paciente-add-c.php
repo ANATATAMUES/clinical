@@ -11,9 +11,10 @@ include_once '../../dbconnection.php';
     $imagen = $_POST['imagen'];
     $nac_id = $_POST['nac_id'];
     $id_usuario = $_POST['id_usuario'];
+    $id_seguro = $_POST['id_seguro'];
 
-    $query = "INSERT into paciente(cedula_paci, nombres_paci1,apellidos_paci1,nombres_paci2,apellidos_paci2,celular_paci,imagen,nac_id,id_usuario) 
-            VALUES ('$cedula_paci', '$nombres_paci1','$apellidos_paci1','$nombres_paci2','$apellidos_paci2','$celular_paci','$imagen','$nac_id','$id_usuario')";
+    $query = "INSERT into paciente(cedula_paci, nombres_paci1,apellidos_paci1,nombres_paci2,apellidos_paci2,celular_paci,imagen,nac_id,id_usuario, id_seguro) 
+            VALUES ('$cedula_paci', '$nombres_paci1','$apellidos_paci1','$nombres_paci2','$apellidos_paci2','$celular_paci','$imagen','$nac_id','$id_usuario', '$id_seguro')";
     $result = mysqli_query($conn, $query);
 
     if (!$result) {
