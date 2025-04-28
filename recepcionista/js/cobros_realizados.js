@@ -182,8 +182,8 @@ $(document).ready(function() {
                                             data: { id_cita },
                                             success: function(response) {
                                                 if (i == (id_citas.length-1)) {
-                                                    //window.open(`../php/reportes/reporte_comp_p.php?id_medico=${id_medico}&id_usuario=${id_usuario}&id_pago=${id_pago}`, '_blank');
-                                                    setTimeout(function() { window.location.href = "historial_pagos.php"; }, 3000);
+                                                    window.open(`../php/reportes/reporte_comp_p.php?id_medico=${id_medico}&id_usuario=${id_usuario}&id_pago=${id_pago}`, '_blank');
+                                                    //setTimeout(function() { window.location.href = "historial_pagos.php"; }, 3000);
                                                 }
                                             }
                                         });

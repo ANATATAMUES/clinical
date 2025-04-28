@@ -14,7 +14,7 @@ include_once '../../dbconnection.php';
     
 
     echo $query = "INSERT into cita_pago(descripcion,costo,id_cita,id_f_pago,fecha_p,hora_p,id_usuario, id_tipo_pago) 
-            VALUES ('$descripcion','$costo','$id_cita','$id_f_pago','$fecha_p','$hora_p','$id_usuario','$id_t_pago')";
+            VALUES ('$descripcion','$costo','$id_cita','$id_f_pago','$fecha_p','$hora_p','$id_usuario','1')";
     $result = mysqli_query($conn, $query);
 
     if (!$result) {
